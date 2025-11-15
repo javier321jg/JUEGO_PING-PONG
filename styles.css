@@ -1,0 +1,430 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Animated Background */
+body::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    z-index: -1;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(252, 70, 107, 0.3), transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(131, 58, 180, 0.3), transparent 50%);
+    animation: gradientShift 20s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(5%, 5%) rotate(120deg); }
+    66% { transform: translate(-5%, 5%) rotate(240deg); }
+}
+
+/* Canvas Container */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Glass Container */
+.glass-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 350px;
+}
+
+/* Glass Panel Effect */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 48px 0 rgba(31, 38, 135, 0.5),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Header */
+.game-header {
+    text-align: center;
+}
+
+.neon-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(138, 43, 226, 0.8),
+        0 0 30px rgba(138, 43, 226, 0.6),
+        0 0 40px rgba(138, 43, 226, 0.4);
+    animation: neonPulse 2s ease-in-out infinite alternate;
+    letter-spacing: 3px;
+}
+
+@keyframes neonPulse {
+    from {
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 0.8),
+            0 0 20px rgba(138, 43, 226, 0.8),
+            0 0 30px rgba(138, 43, 226, 0.6);
+    }
+    to {
+        text-shadow:
+            0 0 20px rgba(255, 255, 255, 1),
+            0 0 30px rgba(138, 43, 226, 1),
+            0 0 40px rgba(138, 43, 226, 0.8),
+            0 0 50px rgba(138, 43, 226, 0.6);
+    }
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9em;
+    margin-top: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Score Board */
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score {
+    font-size: 3em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.vs-separator {
+    font-size: 1.5em;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+}
+
+/* Controls Panel */
+.controls-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.control-row {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.glass-button {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.glass-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.glass-button:active {
+    transform: translateY(0);
+}
+
+.button-icon {
+    font-size: 1.2em;
+}
+
+.difficulty-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+.difficulty-selector label {
+    font-weight: 600;
+}
+
+.glass-select {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    outline: none;
+}
+
+.glass-select option {
+    background: rgba(102, 126, 234, 0.95);
+    color: white;
+}
+
+/* Effects Panel */
+.effects-panel h3 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.effect-toggle {
+    margin-bottom: 10px;
+}
+
+.effect-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.effect-toggle label:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+.effect-toggle input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+/* Info Panel */
+.info-panel {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.info-item .label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-item span:last-child {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-content h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Liquid Loader */
+.liquid-loader {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 40px;
+}
+
+.liquid-wave {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    animation: liquidWave 3s ease-in-out infinite;
+}
+
+.liquid-wave:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.liquid-wave:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes liquidWave {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Loading Bar */
+.loading-bar {
+    width: 300px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.3s ease;
+    animation: progressShine 2s ease-in-out infinite;
+}
+
+@keyframes progressShine {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+#loadingText {
+    margin-top: 20px;
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .glass-container {
+        max-width: calc(100% - 40px);
+    }
+
+    .neon-title {
+        font-size: 2em;
+    }
+
+    .control-row {
+        flex-direction: column;
+    }
+}
+
+/* Glass Morphism Enhancement */
+@supports (backdrop-filter: blur(20px)) {
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}

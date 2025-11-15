@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Pong 3D - Glass & Liquid Physics</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Glassmorphic UI Container -->
+    <div class="glass-container">
+        <div class="game-header">
+            <h1 class="neon-title">PING PONG 3D</h1>
+            <div class="subtitle">Glass & Liquid Physics Engine</div>
+        </div>
+
+        <div class="score-board glass-panel">
+            <div class="score-item">
+                <span class="player-label">Jugador</span>
+                <span class="score" id="playerScore">0</span>
+            </div>
+            <div class="vs-separator">VS</div>
+            <div class="score-item">
+                <span class="player-label">CPU</span>
+                <span class="score" id="cpuScore">0</span>
+            </div>
+        </div>
+
+        <div class="controls-panel glass-panel">
+            <div class="control-row">
+                <button class="glass-button" id="startBtn">
+                    <span class="button-icon">▶</span>
+                    Iniciar
+                </button>
+                <button class="glass-button" id="pauseBtn">
+                    <span class="button-icon">⏸</span>
+                    Pausa
+                </button>
+                <button class="glass-button" id="resetBtn">
+                    <span class="button-icon">↻</span>
+                    Reiniciar
+                </button>
+            </div>
+            <div class="difficulty-selector">
+                <label for="difficulty">Dificultad:</label>
+                <select id="difficulty" class="glass-select">
+                    <option value="easy">Fácil</option>
+                    <option value="medium" selected>Media</option>
+                    <option value="hard">Difícil</option>
+                    <option value="extreme">Extrema</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="effects-panel glass-panel">
+            <h3>Efectos Visuales</h3>
+            <div class="effect-toggle">
+                <label>
+                    <input type="checkbox" id="glassEffect" checked>
+                    <span>Efecto Vidrio</span>
+                </label>
+            </div>
+            <div class="effect-toggle">
+                <label>
+                    <input type="checkbox" id="liquidEffect" checked>
+                    <span>Física Líquida</span>
+                </label>
+            </div>
+            <div class="effect-toggle">
+                <label>
+                    <input type="checkbox" id="particlesEffect" checked>
+                    <span>Partículas</span>
+                </label>
+            </div>
+            <div class="effect-toggle">
+                <label>
+                    <input type="checkbox" id="bloomEffect" checked>
+                    <span>Bloom & Glow</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="info-panel glass-panel">
+            <div class="info-item">
+                <span class="label">FPS:</span>
+                <span id="fps">60</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Velocidad:</span>
+                <span id="ballSpeed">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D Canvas -->
+    <div id="canvas-container"></div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="liquid-loader">
+                <div class="liquid-wave"></div>
+                <div class="liquid-wave"></div>
+                <div class="liquid-wave"></div>
+            </div>
+            <h2>Cargando Motor 3D...</h2>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+            <p id="loadingText">Inicializando...</p>
+        </div>
+    </div>
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Game Scripts -->
+    <script src="game.js"></script>
+</body>
+</html>
