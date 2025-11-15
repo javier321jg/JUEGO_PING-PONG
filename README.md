@@ -271,7 +271,7 @@ MIT License - Siéntete libre de usar este proyecto para aprender o crear tu pro
 
 ## 👨‍💻 Autor
 
-Creado con ❤️ usando Claude AI
+Creado con ❤️ javier 321 jg
 
 ## 🎯 Roadmap
 
